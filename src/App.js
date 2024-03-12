@@ -6,7 +6,7 @@ import QuizResults from './pages/quizResults/QuizResults';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/quiz-app">
         <Routes>
           <Route path="/" element={<QuizMarker />} />
           <Route path="/results" element={<QuizResults />} />

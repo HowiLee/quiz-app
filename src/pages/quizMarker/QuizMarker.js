@@ -1,42 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ANSWER_LIST_SELECTED } from "../../actions/types";
 import './QuizMarker.css';
-import { getCategory, getQuestions } from "../../services/quiz.services";
+import { getCategory, getQuestions } from './../../actions/quizAction';
 
 function QuizMarker() {
-  const [categories, setCategories] = React.useState([]);
+  const dispatch = useDispatch();
+  const {answerSelected, answerSuccess, categories, questions} = useSelector((state)=>state.quizs);
   const [category, setCategory] = React.useState("");
   const [difficulty, setDifficulty] = React.useState("");
-  const [questions, setQuestions] = React.useState([]);
-  const [answerSelected, setAnswerSelected] = React.useState(answerDefault);
-  const [answerSuccess, setAnswerSuccess] = React.useState(answerDefault);
 
   React.useEffect(() => {
-    getCategory()
-      .then((response) => response.json())
-      .then((data) => setCategories(data["trivia_categories"] || []));
+    dispatch(getCategory());
   }, []);
 
   const handleCreactQuiz = () => {
-    setQuestions([]);
-    setAnswerSelected(answerDefault);
-    getQuestions(category, difficulty)
-      .then((response) => response.json())
-      .then((data) => {
-        const results = data["results" || []];
-        const answerSuccessIdx = [];
-        if (results.length > 0) {
-          results.forEach((item) => {
-            item.answers = [...item.incorrect_answers];
-            const pos = (item.answers.length + 1) * Math.random() | 0;
-            item.answers.splice(pos, 0, item.correct_answer);
-            answerSuccessIdx.push(pos);
-          });
-          setAnswerSuccess(answerSuccessIdx);
-        }
-        setQuestions(results);
-      });
+    dispatch(getQuestions(category, difficulty));
   };
+
   const isDisplaySubmit = React.useMemo(() => {
     if(answerSelected.some((e)=> e < 0)) {
       return false;
@@ -94,7 +77,10 @@ function QuizMarker() {
                     } else {
                       ans[i] = idx;
                     }
-                    setAnswerSelected(ans);
+                    dispatch({
+                      type: ANSWER_LIST_SELECTED,
+                      payload: ans,
+                    })
                   }}
                 >{answer}</button>)
               )}
@@ -112,5 +98,3 @@ function QuizMarker() {
   );
 }
 export default QuizMarker;
-
-const answerDefault = [-1, -1, -1, -1, -1];

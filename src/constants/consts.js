@@ -1,0 +1,1 @@
+export const ANSWER_DEFAULT = [-1, -1, -1, -1, -1];

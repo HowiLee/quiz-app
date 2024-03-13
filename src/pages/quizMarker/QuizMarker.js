@@ -89,7 +89,11 @@ function QuizMarker() {
                 <button key={'answer'+idx} className={`btn btn btn-outline-success mt-3 ${answerSelected[i] === idx ? "btnSelected" : "btnUnSelected"}`} type="button"
                   onClick={()=>{
                     const ans = [...answerSelected];
-                    ans[i] = idx;
+                    if(answerSelected[i] === idx) {
+                      ans[i] = -1;
+                    } else {
+                      ans[i] = idx;
+                    }
                     setAnswerSelected(ans);
                   }}
                 >{answer}</button>)

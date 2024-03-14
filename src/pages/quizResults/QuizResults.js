@@ -23,7 +23,7 @@ function QuizResults() {
             <span>{item.question}</span>
             <div>
               {item.answers.map((answer, idx) => (
-                <span key={idx} className={`answer mt-3 ${answerSuccess[i] === idx || (answerSuccess[i] === idx && answerSelected[i] === idx) ? "answerCorrect" : answerSelected[i] === idx ? "answerFail" : ''}`}>{answer}</span>)
+                <span key={idx} className={`answer m-2 ${answerSuccess[i] === idx || (answerSuccess[i] === idx && answerSelected[i] === idx) ? "answerCorrect" : answerSelected[i] === idx ? "answerFail" : ''}`}>{answer}</span>)
               )}
             </div>
         </div>

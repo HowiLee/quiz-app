@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RESET_STATE } from './../../actions/types';
+import { resetState } from "../../actions/quizAction";
 import './QuizResults.css';
 
 function QuizResults() {
@@ -32,11 +32,7 @@ function QuizResults() {
           <span className={`notify ${scored < 2 ? 'stsDanger' : scored < 4 ? 'stsWarning': 'stsSucces'}`}>You scored {scored} out of 5</span>
         </div>
         <Link to="/"> 
-          <button id="btnCreateQuiz" type="button" className="btn btn-secondary m-3" onClick={()=>{
-            dispatch({
-              type: RESET_STATE
-            });
-          }}>Create a new quiz</button>
+          <button id="btnCreateQuiz" type="button" className="btn btn-secondary m-3" onClick={() => dispatch(resetState())}>Create a new quiz</button>
         </Link>
       </div>
     );

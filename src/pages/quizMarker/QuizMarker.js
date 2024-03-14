@@ -2,9 +2,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { ANSWER_LIST_SELECTED } from "../../actions/types";
+import { getCategory, getQuestions, setAnswerListSelected } from './../../actions/quizAction';
 import './QuizMarker.css';
-import { getCategory, getQuestions } from './../../actions/quizAction';
 
 function QuizMarker() {
   const dispatch = useDispatch();
@@ -77,10 +76,7 @@ function QuizMarker() {
                     } else {
                       ans[i] = idx;
                     }
-                    dispatch({
-                      type: ANSWER_LIST_SELECTED,
-                      payload: ans,
-                    })
+                    dispatch(setAnswerListSelected(ans))
                   }}
                 >{answer}</button>)
               )}

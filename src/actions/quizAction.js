@@ -1,4 +1,4 @@
-import { ANSWER_LIST_SUCCESS, CATEGORIES, QUESTIONS } from "./types";
+import { ANSWER_LIST_SELECTED, ANSWER_LIST_SUCCESS, CATEGORIES, QUESTIONS, RESET_STATE } from "./types";
 
 export const getCategory = () => (dispatch) => {
   fetch("https://opentdb.com/api_category.php")
@@ -44,3 +44,13 @@ export const getQuestions = (category, difficulty) => (dispatch) => {
       });
     });
 };
+
+export const resetState = () => (dispatch) => dispatch({
+  type: RESET_STATE
+});
+
+export const setAnswerListSelected = (answerLstSuccess) => (dispatch) =>
+  dispatch({
+    type: ANSWER_LIST_SELECTED,
+    payload: answerLstSuccess,
+  });

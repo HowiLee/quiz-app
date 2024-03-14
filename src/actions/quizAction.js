@@ -10,7 +10,11 @@ export const getCategory = () => (dispatch) => {
       })
     );
 };
-
+function decodeHtml(s) {
+  var txt = document.createElement("p");
+  txt.innerHTML = decodeURIComponent(s);
+  return txt.innerText;
+}
 export const getQuestions = (category, difficulty) => (dispatch) => {
   const answerSuccessIdx = [];
   let results = [];
@@ -22,6 +26,7 @@ export const getQuestions = (category, difficulty) => (dispatch) => {
       results = data["results"] || [];
       if (results.length > 0) {
         results.forEach((item) => {
+          item.question = decodeHtml(item.question);
           item.answers = [...item.incorrect_answers];
           const start = ((item.answers.length + 1) * Math.random()) | 0;
           item.answers.splice(start, 0, item.correct_answer);

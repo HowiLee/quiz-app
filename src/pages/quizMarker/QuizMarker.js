@@ -69,7 +69,7 @@ function QuizMarker() {
             <span>{item.question}</span>
             <div>
               {item.answers.map((answer, idx) => (
-                <button key={'answer'+idx} className={`btn btn btn-outline-success mt-3 ${answerSelected[i] === idx ? "btnSelected" : "btnUnSelected"}`} type="button"
+                <button key={'answer'+idx} className={`btn btn btn-outline-success m-2 ${answerSelected[i] === idx ? "btnSelected" : "btnUnSelected"}`} type="button"
                   onClick={()=>{
                     const ans = [...answerSelected];
                     if(answerSelected[i] === idx) {

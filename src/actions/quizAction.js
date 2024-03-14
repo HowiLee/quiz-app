@@ -27,9 +27,10 @@ export const getQuestions = (category, difficulty) => (dispatch) => {
       if (results.length > 0) {
         results.forEach((item) => {
           item.question = decodeHtml(item.question);
-          item.answers = [...item.incorrect_answers];
+          item.answers = [];
+          item.incorrect_answers.map(e => item.answers.push(decodeHtml(e)));
           const start = ((item.answers.length + 1) * Math.random()) | 0;
-          item.answers.splice(start, 0, item.correct_answer);
+          item.answers.splice(start, 0, decodeHtml(item.correct_answer));
           answerSuccessIdx.push(start);
         });
         dispatch({
